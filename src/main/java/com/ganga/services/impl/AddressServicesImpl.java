@@ -32,6 +32,8 @@ public class AddressServicesImpl implements AddressServices {
 		User user=this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", "Id", userId));
 		Address address=this.DtoToAddress(addressDto);
 		address.setUserAddress(user);
+		if(this.addressRepository.findByUserAddress(user).get().size()==0)
+			address.setBuyerAddressDefaultOrNot(true);
 		this.addressRepository.save(address);
 		return this.addressToDto(address);
 	}
