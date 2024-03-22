@@ -1,7 +1,10 @@
 package com.ganga.entities;
 
 
+import com.ganga.entities.Ids.ProductUserId;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -10,14 +13,16 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class CartProduct {
 	
+	@EmbeddedId
+	private ProductUserId productUserId;
+
 	@ManyToOne
-	@JoinColumn(name="product_id")
-	@Id
+	@JoinColumn(name="product_id", referencedColumnName = "productId", insertable = false, updatable = false)
 	private Products cartProducts;
 	
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
-	@Id
+	@JoinColumn(name="user_id", referencedColumnName = "userId", insertable = false, updatable = false)
 	private User cartUser;
 	
 	@Column(name="product_quantity")

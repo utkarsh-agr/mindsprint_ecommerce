@@ -58,13 +58,13 @@ public class User implements UserDetails {
 	@Column(nullable=true)
 	private String userPicUrl;
 	
-	@OneToMany(mappedBy = "cartUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cartUser", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<CartProduct> cartProducts=new ArrayList<>();
 	
-	@OneToMany(mappedBy = "userAddress", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "userAddress", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<Address> userAddress=new ArrayList<>();
 	
-	@OneToMany(mappedBy = "wishlistUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "wishlistUser", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<Wishlist> userWishlists=new ArrayList<>();
 	
 	@OneToMany(mappedBy = "ratedByUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

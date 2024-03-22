@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.ganga.configs.AppConstants;
 import com.ganga.entities.Role;
 import com.ganga.entities.User;
+import com.ganga.repositories.AddressRepository;
 import com.ganga.repositories.RoleRepository;
 import com.ganga.repositories.UserRepository;
 
@@ -36,6 +37,10 @@ public class GangaApplication implements CommandLineRunner {
 	
 	@Autowired
 	public UserRepository userRepository;
+	
+//	@Autowired
+//	public AddressRepository addressRepository;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(GangaApplication.class, args);
@@ -81,6 +86,8 @@ public class GangaApplication implements CommandLineRunner {
 		System.out.println("The different roles are: ");
 		
 		result.forEach(role->System.out.println(role.getRoleName()));
+		
+		//this.addressRepository.deleteById(3);
 	}
 	
 	

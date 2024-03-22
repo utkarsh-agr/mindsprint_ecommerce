@@ -3,6 +3,7 @@ package com.ganga.services;
 import java.util.List;
 
 import com.ganga.payloads.AddressDto;
+import com.ganga.payloads.ApiResponse;
 
 public interface AddressServices {
 	
@@ -13,6 +14,9 @@ public interface AddressServices {
 	public List<AddressDto> findAddressOfAUser(int userId);
 	
 	public List<AddressDto> findAllAddress();
+	
+	public ApiResponse deleteMyAddress(Integer addressId, Integer userId);
+	
 	
 
 }
