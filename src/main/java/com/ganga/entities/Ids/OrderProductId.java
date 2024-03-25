@@ -20,6 +20,9 @@ public class OrderProductId {
 		this.orderId = orderId;
 	}
 
+
+	
+
 	public int getProductId() {
 		return productId;
 	}
@@ -28,6 +31,7 @@ public class OrderProductId {
 		this.productId = productId;
 	}
 
+	
 	public OrderProductId(int orderId, int productId) {
 		super();
 		this.orderId = orderId;

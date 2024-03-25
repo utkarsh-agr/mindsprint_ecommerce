@@ -45,7 +45,7 @@ public class Products {
 	@JoinColumn(name="category_id")
 	private Category productCategory;
 	
-	@OneToMany(mappedBy = "cartProducts",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cartProducts",cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	List<CartProduct> cartProducts=new ArrayList<>();
 
 	public int getProductId() {

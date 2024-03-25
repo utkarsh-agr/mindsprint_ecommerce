@@ -59,6 +59,8 @@ public class CheckoutServicesImpl implements CheckoutServices {
 		Checkout checkout=new Checkout();
 		checkout.setCheckoutAmount(amount);
 		checkout.setCheckoutExtras(AppConstants.SHIPPING_COST);
+		checkout.setCheckoutTotal(amount+AppConstants.SHIPPING_COST);
+		checkout.setCheckoutUser(user);
 		
 		checkout.setCheckoutAddress(address);
 		

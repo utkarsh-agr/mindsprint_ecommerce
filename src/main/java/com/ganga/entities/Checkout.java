@@ -15,13 +15,15 @@ public class Checkout {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int checkoutId;
 	
-	@JoinColumn(name="user_id")
 	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User checkoutUser;
 	
 	private double checkoutAmount;
 	
 	private double checkoutExtras;
+	
+	private double checkoutTotal;
 	
 	@ManyToOne
 	@JoinColumn(name="address_id")
@@ -42,11 +44,11 @@ public class Checkout {
 		this.checkoutId = checkoutId;
 	}
 
-	public User getCartProduct() {
+	public User getCheckoutUser() {
 		return checkoutUser;
 	}
 
-	public void setCartProduct(User checkoutUser) {
+	public void setCheckoutUser(User checkoutUser) {
 		this.checkoutUser = checkoutUser;
 	}
 
@@ -64,6 +66,14 @@ public class Checkout {
 
 	public void setCheckoutExtras(double checkoutExtras) {
 		this.checkoutExtras = checkoutExtras;
+	}
+
+	public double getCheckoutTotal() {
+		return checkoutTotal;
+	}
+
+	public void setCheckoutTotal(double checkoutTotal) {
+		this.checkoutTotal = checkoutTotal;
 	}
 
 	public Address getCheckoutAddress() {
@@ -99,12 +109,14 @@ public class Checkout {
 	}
 
 	public Checkout(int checkoutId, User checkoutUser, double checkoutAmount, double checkoutExtras,
-			Address checkoutAddress, boolean isPaymentDone, String paymentMethod, String paymentDate) {
+			double checkoutTotal, Address checkoutAddress, boolean isPaymentDone, String paymentMethod,
+			String paymentDate) {
 		super();
 		this.checkoutId = checkoutId;
 		this.checkoutUser = checkoutUser;
 		this.checkoutAmount = checkoutAmount;
 		this.checkoutExtras = checkoutExtras;
+		this.checkoutTotal = checkoutTotal;
 		this.checkoutAddress = checkoutAddress;
 		this.isPaymentDone = isPaymentDone;
 		this.paymentMethod = paymentMethod;
@@ -115,6 +127,7 @@ public class Checkout {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	
 	
 	

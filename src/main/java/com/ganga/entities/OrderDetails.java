@@ -22,6 +22,8 @@ public class OrderDetails {
 	
 	private double productPrice;
 	
+	private int productQuantity;
+	
 
 	public Order getOrderIdForCurrentOrder() {
 		return orderIdForCurrentOrder;
@@ -55,13 +57,24 @@ public class OrderDetails {
 		this.orderProductId = orderProductId;
 	}
 
+	public int getProductQuantity() {
+		return productQuantity;
+	}
+
+	public void setProductQuantity(int productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+
+	
+
 	public OrderDetails(OrderProductId orderProductId, Order orderIdForCurrentOrder, String productName,
-			double productPrice) {
+			double productPrice, int productQuantity) {
 		super();
 		this.orderProductId = orderProductId;
 		this.orderIdForCurrentOrder = orderIdForCurrentOrder;
 		this.productName = productName;
 		this.productPrice = productPrice;
+		this.productQuantity = productQuantity;
 	}
 
 	public OrderDetails() {
