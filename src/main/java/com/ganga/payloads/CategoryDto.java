@@ -7,10 +7,10 @@ public class CategoryDto {
 	public int categoryId;
 	
 	@NotEmpty(message="The name of the category must not be empty")
-	public int categoryName;
+	public String categoryName;
 	
 	@NotEmpty(message="Please do provide the description of the category")
-	public int categoryDescription;
+	public String categoryDescription;
 
 	public int getCategoryId() {
 		return categoryId;
@@ -20,25 +20,25 @@ public class CategoryDto {
 		this.categoryId = categoryId;
 	}
 
-	public int getCategoryName() {
+	public String getCategoryName() {
 		return categoryName;
 	}
 
-	public void setCategoryName(int categoryName) {
+	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 
-	public int getCategoryDescription() {
+	public String getCategoryDescription() {
 		return categoryDescription;
 	}
 
-	public void setCategoryDescription(int categoryDescription) {
+	public void setCategoryDescription(String categoryDescription) {
 		this.categoryDescription = categoryDescription;
 	}
 
 	public CategoryDto(int categoryId,
-			@NotEmpty(message = "The name of the category must not be empty") int categoryName,
-			@NotEmpty(message = "Please do provide the description of the category") int categoryDescription) {
+			@NotEmpty(message = "The name of the category must not be empty") String categoryName,
+			@NotEmpty(message = "Please do provide the description of the category") String categoryDescription) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;

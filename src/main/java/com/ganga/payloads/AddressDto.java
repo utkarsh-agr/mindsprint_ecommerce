@@ -19,7 +19,7 @@ public class AddressDto {
 
 	public String buyerType;
 	
-	public boolean buyerAddressDefaultOrNot;
+	public boolean addressDefault;
 
 	public int getBuyerAddressId() {
 		return buyerAddressId;
@@ -61,25 +61,30 @@ public class AddressDto {
 		this.buyerType = buyerType;
 	}
 
-	public boolean isBuyerAddressDefaultOrNot() {
-		return buyerAddressDefaultOrNot;
+
+	
+
+	public boolean isAddressDefault() {
+		return addressDefault;
 	}
 
-	public void setBuyerAddressDefaultOrNot(boolean buyerAddressDefaultOrNot) {
-		this.buyerAddressDefaultOrNot = buyerAddressDefaultOrNot;
+	public void setAddressDefault(boolean addressDefault) {
+		this.addressDefault = addressDefault;
 	}
+	
+	
 
 	public AddressDto(int buyerAddressId, @NotEmpty(message = "Please Enter the name of the buyer") String buyerName,
 			@NotEmpty(message = "Please Enter the address") String buyerAddress,
 			@NotEmpty(message = "Please Enter the Phone number of the Buyer") String buyerPhone, String buyerType,
-			boolean buyerAddressDefaultOrNot) {
+			boolean addressDefault) {
 		super();
 		this.buyerAddressId = buyerAddressId;
 		this.buyerName = buyerName;
 		this.buyerAddress = buyerAddress;
 		this.buyerPhone = buyerPhone;
 		this.buyerType = buyerType;
-		this.buyerAddressDefaultOrNot = buyerAddressDefaultOrNot;
+		this.addressDefault = addressDefault;
 	}
 
 	public AddressDto() {

@@ -37,7 +37,7 @@ public class AddressServicesImpl implements AddressServices {
 		Address address=this.DtoToAddress(addressDto);
 		address.setUserAddress(user);
 		if(this.addressRepository.findByUserAddress(user).get().size()==0)
-			address.setBuyerAddressDefaultOrNot(true);
+			address.setAddressDefault(true);
 		this.addressRepository.save(address);
 		return this.addressToDto(address);
 	}
@@ -81,7 +81,7 @@ public class AddressServicesImpl implements AddressServices {
 					
 		boolean flag=false;
 		
-		if(ad.isBuyerAddressDefaultOrNot())
+		if(ad.isAddressDefault())
 			flag=true;
 		
 		
@@ -91,7 +91,7 @@ public class AddressServicesImpl implements AddressServices {
 		if(flag && !this.addressRepository.findByUserAddress(ad.getUserAddress()).get().isEmpty()) {
 			System.out.println(1);
 			Address address=this.addressRepository.findByUserAddress(ad.getUserAddress()).get().get(0);
-			address.setBuyerAddressDefaultOrNot(true);
+			address.setAddressDefault(true);
 			this.addressRepository.save(address);
 		}
 		

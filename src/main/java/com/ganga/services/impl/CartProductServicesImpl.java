@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ganga.entities.CartProduct;
 import com.ganga.entities.Category;
@@ -20,6 +21,7 @@ import com.ganga.repositories.ProductRepository;
 import com.ganga.repositories.UserRepository;
 import com.ganga.services.CartProductServices;
 
+@Service
 public class CartProductServicesImpl implements CartProductServices {
 	
 	@Autowired
@@ -37,11 +39,13 @@ public class CartProductServicesImpl implements CartProductServices {
 	@Override
 	public ApiResponse setProductToCart(CartProductDto cartProductDto,int productId, int userId) {
 		CartProduct cartProduct=this.dtoToCartProduct(cartProductDto);
+		//System.out.println(cartProduct.getProductQuantity());
+		//System.out.println(cartProductDto.getProductQuantity());
 		User user=this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
 		Products product=this.productRepository.findById(productId).orElseThrow(()-> new ResourceNotFoundException("Product", "Id", productId));
 		if(product.getProductQuantity()<(long)cartProductDto.getProductQuantity())
 			return new ApiResponse("Higher quantity then the stock available",false);
-		
+		cartProduct.setProductUserId(new ProductUserId(productId,userId));
 		cartProduct.setCartUser(user);
 		cartProduct.setCartProducts(product);
 		this.cartProductRepository.save(cartProduct);
@@ -87,6 +91,13 @@ public class CartProductServicesImpl implements CartProductServices {
 		List<CartProduct> listOfProducts=this.cartProductRepository.findByCartUser(user).get();
 		return listOfProducts.stream().map(e-> this.cartProductToDto(e)).collect(Collectors.toList());
 	}
+	
+	@Override
+	public List<CartProductDto> getAllCartProductsForAUserSelected(int userId) {
+		User user=this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
+		List<CartProduct> listOfProducts=this.cartProductRepository.findByCartUserAndSelect(user,true).get();
+		return listOfProducts.stream().map(e-> this.cartProductToDto(e)).collect(Collectors.toList());
+	}
 
 	
 	public CartProductDto cartProductToDto(CartProduct cartProduct) {
@@ -96,6 +107,8 @@ public class CartProductServicesImpl implements CartProductServices {
 	public CartProduct dtoToCartProduct(CartProductDto cartProductDto) {
 		return this.modelMapper.map(cartProductDto, CartProduct.class);
 	}
+
+	
 
 	
 

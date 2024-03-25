@@ -12,5 +12,7 @@ import com.ganga.entities.Ids.ProductUserId;
 public interface CartProductRepository extends JpaRepository<CartProduct, ProductUserId> {
 	
 	Optional<List<CartProduct>> findByCartUser(User user);
+	
+	Optional<List<CartProduct>> findByCartUserAndSelect(User user, boolean select);
 
 }

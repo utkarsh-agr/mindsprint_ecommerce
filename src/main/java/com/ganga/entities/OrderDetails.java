@@ -1,5 +1,8 @@
 package com.ganga.entities;
 
+import com.ganga.entities.Ids.OrderProductId;
+
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -8,25 +11,17 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class OrderDetails {
 	
-	@Id
-	private int productId;
+	@EmbeddedId
+	private OrderProductId orderProductId;
 	
 	@OneToOne
-	@JoinColumn(name="order_id")
-	@Id
+	@JoinColumn(name="order_id", referencedColumnName = "orderId", insertable = false, updatable = false)
 	private Order orderIdForCurrentOrder;
 	
 	private String productName;
 	
 	private double productPrice;
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
+	
 
 	public Order getOrderIdForCurrentOrder() {
 		return orderIdForCurrentOrder;
@@ -52,9 +47,18 @@ public class OrderDetails {
 		this.productPrice = productPrice;
 	}
 
-	public OrderDetails(int productId, Order orderIdForCurrentOrder, String productName, double productPrice) {
+	public OrderProductId getOrderProductId() {
+		return orderProductId;
+	}
+
+	public void setOrderProductId(OrderProductId orderProductId) {
+		this.orderProductId = orderProductId;
+	}
+
+	public OrderDetails(OrderProductId orderProductId, Order orderIdForCurrentOrder, String productName,
+			double productPrice) {
 		super();
-		this.productId = productId;
+		this.orderProductId = orderProductId;
 		this.orderIdForCurrentOrder = orderIdForCurrentOrder;
 		this.productName = productName;
 		this.productPrice = productPrice;

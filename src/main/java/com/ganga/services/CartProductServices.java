@@ -14,6 +14,8 @@ public interface CartProductServices {
 	
 	public List<CartProductDto> getAllCartProductsForAUser(int userId);
 	
+	public List<CartProductDto> getAllCartProductsForAUserSelected(int userId);
+	
 	public ApiResponse increaseQuantityByOne(int productId, int userId);
 	
 	public ApiResponse decreaseQuantityByOne(int productId, int userId);

@@ -11,4 +11,6 @@ import com.ganga.entities.User;
 public interface AddressRepository extends JpaRepository<Address, Integer> {
 	
 	Optional<List<Address>> findByUserAddress(User user); //UserOfAddress
+	
+	Optional<Address> findByUserAddressAndAddressDefault(User user, boolean value);
 }

@@ -30,7 +30,7 @@ public class Address {
 	private String buyerType;
 	
 	@Column(nullable=true)
-	private boolean buyerAddressDefaultOrNot;
+	private boolean addressDefault;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -76,13 +76,7 @@ public class Address {
 		this.buyerType = buyerType;
 	}
 
-	public boolean isBuyerAddressDefaultOrNot() {
-		return buyerAddressDefaultOrNot;
-	}
-
-	public void setBuyerAddressDefaultOrNot(boolean buyerAddressDefaultOrNot) {
-		this.buyerAddressDefaultOrNot = buyerAddressDefaultOrNot;
-	}
+	
 
 	public User getUserAddress() {
 		return userAddress;
@@ -92,15 +86,26 @@ public class Address {
 		this.userAddress = userAddress;
 	}
 
+
+	public boolean isAddressDefault() {
+		return addressDefault;
+	}
+
+	public void setAddressDefault(boolean addressDefault) {
+		this.addressDefault = addressDefault;
+	}
+	
+	
+
 	public Address(int buyerAddressId, String buyerName, String buyerAddress, String buyerPhone, String buyerType,
-			boolean buyerAddressDefaultOrNot, User userAddress) {
+			boolean addressDefault, User userAddress) {
 		super();
 		this.buyerAddressId = buyerAddressId;
 		this.buyerName = buyerName;
 		this.buyerAddress = buyerAddress;
 		this.buyerPhone = buyerPhone;
 		this.buyerType = buyerType;
-		this.buyerAddressDefaultOrNot = buyerAddressDefaultOrNot;
+		this.addressDefault = addressDefault;
 		this.userAddress = userAddress;
 	}
 

@@ -50,6 +50,7 @@ public class ProductServicesImpl implements ProductServices {
 		Category category=this.categoryRepository.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category", "Id", categoryId));
 		Products product=this.dtoToProduct(productDto);
 		product.setProductCategory(category);
+		this.productRepository.save(product);
 		return this.productToDto(product);
 		
 	}

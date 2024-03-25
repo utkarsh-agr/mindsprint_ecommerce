@@ -65,6 +65,15 @@ public class CartProduct {
 		this.select = select;
 	}
 	
+	
+
+	public ProductUserId getProductUserId() {
+		return productUserId;
+	}
+
+	public void setProductUserId(ProductUserId productUserId) {
+		this.productUserId = productUserId;
+	}
 
 	public CartProduct(Products cartProducts, User cartUser, int productQuantity, boolean select) {
 		super();
