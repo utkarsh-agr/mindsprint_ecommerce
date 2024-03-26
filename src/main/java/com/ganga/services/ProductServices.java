@@ -13,7 +13,7 @@ public interface ProductServices {
 	
 	public ProductDto AddProduct(ProductDto productDto, int categoryId);
 	
-	public ProductDto updateQuantity(int newQuantity, int productId);
+	public ProductDto updateQuantity(long newQuantity, int productId);
 	
 	public ProductDto updateProductName(String newName, int productId);
 	

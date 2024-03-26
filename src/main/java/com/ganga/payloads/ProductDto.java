@@ -21,6 +21,7 @@ public class ProductDto {
 	public long productQuantity;
 	
 	public double productRating;
+	
 
 	public int getProductId() {
 		return productId;
@@ -69,6 +70,7 @@ public class ProductDto {
 	public void setProductRating(double productRating) {
 		this.productRating = productRating;
 	}
+	
 
 	public ProductDto(int productId,
 			@NotEmpty(message = "The name of the product must not be Empty") @Size(min = 3, message = "The name of the product must be more than 3 characters") String productName,

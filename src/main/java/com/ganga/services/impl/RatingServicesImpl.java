@@ -1,5 +1,9 @@
 package com.ganga.services.impl;
 
+import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,14 +38,15 @@ public class RatingServicesImpl implements RatingServices {
 
 	// This function will return the rating given by a user for some product
 	@Override
-	public RatingDto getRatingById(int productId, int userId) {
-		
+	public RatingDto getRatingById(int productId, Principal principal) {
+		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
 		Rating rating=this.ratingRepository.findById(new ProductUserId(productId,userId)).orElseThrow(()->new ResourceNotFoundException("Rating", "IDs", 0));
 		return this.ratingToDto(rating);
 	}
 	// This function will set the rating given by a user for some product
 	@Override
-	public RatingDto setRating(int productId, int userId, RatingDto ratingDto) {
+	public RatingDto setRating(int productId, Principal principal, RatingDto ratingDto) {
+		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
 		Rating rating=this.dtoToRating(ratingDto);
 		User user=this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", "Id", userId));
 		Products product=this.productRepository.findById(productId).orElseThrow(()->new ResourceNotFoundException("Product", "Id", productId));
@@ -49,6 +54,20 @@ public class RatingServicesImpl implements RatingServices {
 		rating.setRatedByUser(user);
 		this.ratingRepository.save(rating);
 		return this.ratingToDto(rating);
+	}
+	
+	@Override
+	public List<RatingDto> getAllRatingsForAProduct(int productId) {
+		Products product=this.productRepository.findById(productId).orElseThrow(()->new ResourceNotFoundException("Product", "Id", productId));
+		List<Rating> ratingList=this.ratingRepository.findByRatedProduct(product).get();
+		return ratingList.stream().map(e->this.ratingToDto(e)).collect(Collectors.toList());
+	}
+	@Override
+	public List<RatingDto> getAllRatingsOfAUser(Principal principal) {
+		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
+		User user=this.userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("user", "Id", userId));
+		List<Rating> ratingList=this.ratingRepository.findByRatedByUser(user).get();
+		return ratingList.stream().map(e->this.ratingToDto(e)).collect(Collectors.toList());
 	}
 	
 	//This function uses model mapper to map and transfer data from Rating class to RatingDto 
@@ -61,6 +80,7 @@ public class RatingServicesImpl implements RatingServices {
 	public Rating dtoToRating(RatingDto ratingDto) {
 		return this.modelMapper.map(ratingDto, Rating.class);
 	}
+	
 	
 	
 

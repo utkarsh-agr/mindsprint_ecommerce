@@ -57,7 +57,7 @@ public class ProductServicesImpl implements ProductServices {
 
 
 	@Override
-	public ProductDto updateQuantity(int newQuantity, int productId) {
+	public ProductDto updateQuantity(long newQuantity, int productId) {
 		Products product=this.productRepository.findById(productId).orElseThrow(()-> new ResourceNotFoundException("Product", "Id", productId));
 		product.setProductQuantity(newQuantity);
 		this.productRepository.save(product);

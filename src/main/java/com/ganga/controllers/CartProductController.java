@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,15 +35,34 @@ public class CartProductController {
 		return new ApiResponse("Product added successfully", true);
 	}
 	@GetMapping("/get_cart_product")
-	public ResponseEntity<List<CartProductDto>> getAllProducts(Principal principal){
+	public ResponseEntity<List<CartProductDto>> getAllProductsForUser(Principal principal){
 		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
 		return ResponseEntity.ok(this.cartProductServices.getAllCartProductsForAUser(userId));
 	}
 	
 	@GetMapping("/get_cart_product_selected")
-	public ResponseEntity<List<CartProductDto>> getAllProductsSelected(Principal principal){
+	public ResponseEntity<List<CartProductDto>> getAllProductsForUserSelected(Principal principal){
 		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
 		return ResponseEntity.ok(this.cartProductServices.getAllCartProductsForAUserSelected(userId));
 	}
+	
+	@DeleteMapping("/deleteProduct/{productId}")
+	public ResponseEntity<ApiResponse> deleteProductFromCart(Principal principal, @PathVariable(name = "productId") int productId){
+		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
+		return ResponseEntity.ok(this.cartProductServices.deleteProductFromCart(productId, userId));
+	}
+	
+	@PutMapping("/{productId}/increase_quantity")
+	public ResponseEntity<ApiResponse> increaseQuantityByOne(Principal principal, @PathVariable(name = "productId") int productId){
+		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
+		return ResponseEntity.ok(this.cartProductServices.increaseQuantityByOne(productId, userId));
+	}
+	
+	@DeleteMapping("/{productId}/decrease_quantity")
+	public ResponseEntity<ApiResponse> decreaseQuantityByOne(Principal principal, @PathVariable(name = "productId") int productId){
+		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
+		return ResponseEntity.ok(this.cartProductServices.decreaseQuantityByOne(productId, userId));
+	}
+	
 
 }
