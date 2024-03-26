@@ -48,6 +48,7 @@ public class CartProductServicesImpl implements CartProductServices {
 		cartProduct.setProductUserId(new ProductUserId(productId,userId));
 		cartProduct.setCartUser(user);
 		cartProduct.setCartProducts(product);
+		cartProduct.setSelect(true);
 		this.cartProductRepository.save(cartProduct);
 		return new ApiResponse("Product Added successfully",true);
 	}
@@ -98,6 +99,15 @@ public class CartProductServicesImpl implements CartProductServices {
 		List<CartProduct> listOfProducts=this.cartProductRepository.findByCartUserAndSelect(user,true).get();
 		return listOfProducts.stream().map(e-> this.cartProductToDto(e)).collect(Collectors.toList());
 	}
+	
+	@Override
+	public ApiResponse unselect(int productId, int userId) {
+		CartProduct cartProduct=this.cartProductRepository.findById(new ProductUserId(productId,userId)).orElseThrow(()-> new ResourceNotFoundException("CartProduct", "Id", 0));
+		cartProduct.setSelect(false);
+		this.cartProductRepository.save(cartProduct);
+		return new ApiResponse("unselected", true);
+	}
+
 
 	
 	public CartProductDto cartProductToDto(CartProduct cartProduct) {
@@ -108,6 +118,7 @@ public class CartProductServicesImpl implements CartProductServices {
 		return this.modelMapper.map(cartProductDto, CartProduct.class);
 	}
 
+	
 	
 
 	

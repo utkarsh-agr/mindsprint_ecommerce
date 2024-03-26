@@ -45,6 +45,12 @@ public class ProductController {
 		return ResponseEntity.ok(this.productServices.getProductById(productId));
 	}
 	
+	@GetMapping("/{categoryId}/get_products_category")
+	public ResponseEntity<List<ProductDto>> getProductsByCategoryId(@PathVariable(name = "categoryId") int categoryId){
+		return ResponseEntity.ok(this.productServices.getByProductCategory(categoryId));
+	}
+	
+	
 	@DeleteMapping("/{productId}/delete_product")
 	public ResponseEntity<ApiResponse> removeAProduct(@PathVariable(name = "productId") int productId){
 		this.productServices.removeProductById(productId);

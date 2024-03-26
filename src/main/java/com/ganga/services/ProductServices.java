@@ -11,6 +11,8 @@ public interface ProductServices {
 	
 	public void removeProductById(int id);
 	
+	public List<ProductDto> getByProductCategory(int categoryId);
+	
 	public ProductDto AddProduct(ProductDto productDto, int categoryId);
 	
 	public ProductDto updateQuantity(long newQuantity, int productId);

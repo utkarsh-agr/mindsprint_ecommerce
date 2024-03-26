@@ -58,10 +58,16 @@ public class CartProductController {
 		return ResponseEntity.ok(this.cartProductServices.increaseQuantityByOne(productId, userId));
 	}
 	
-	@DeleteMapping("/{productId}/decrease_quantity")
+	@PutMapping("/{productId}/decrease_quantity")
 	public ResponseEntity<ApiResponse> decreaseQuantityByOne(Principal principal, @PathVariable(name = "productId") int productId){
 		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
 		return ResponseEntity.ok(this.cartProductServices.decreaseQuantityByOne(productId, userId));
+	}
+	
+	@PutMapping("/{productId}/unselect")
+	public ResponseEntity<ApiResponse> unselect(Principal principal, @PathVariable(name = "productId") int productId){
+		int userId=this.userRepository.findByUserEmail(principal.getName()).get().getUserId();
+		return ResponseEntity.ok(this.cartProductServices.unselect(productId, userId));
 	}
 	
 

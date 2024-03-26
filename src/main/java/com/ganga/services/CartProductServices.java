@@ -19,5 +19,7 @@ public interface CartProductServices {
 	public ApiResponse increaseQuantityByOne(int productId, int userId);
 	
 	public ApiResponse decreaseQuantityByOne(int productId, int userId);
+	
+	public ApiResponse unselect(int productId, int userId);
 
 }

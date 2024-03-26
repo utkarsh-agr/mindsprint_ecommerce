@@ -80,6 +80,12 @@ public class ProductServicesImpl implements ProductServices {
 		return this.productToDto(product);
 	}
 	
+	@Override
+	public List<ProductDto> getByProductCategory(int categoryId) {
+		Category category=this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("Category", "Id", categoryId));
+		List<Products> productLists=this.productRepository.findByProductCategory(category).get();
+		return productLists.stream().map(e->this.productToDto(e)).collect(Collectors.toList());
+	}
 	
 	public ProductDto productToDto(Products prod) {
 		return this.modelMapper.map(prod, ProductDto.class);
@@ -88,4 +94,6 @@ public class ProductServicesImpl implements ProductServices {
 	public Products dtoToProduct(ProductDto productDto) {
 		return this.modelMapper.map(productDto, Products.class);
 	}
+
+	
 }
